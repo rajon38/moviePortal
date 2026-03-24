@@ -1,0 +1,13 @@
+model Like {
+  id        String   @id @default(uuid())
+
+  userId    String
+  reviewId  String
+
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id])
+  review    Review   @relation(fields: [reviewId], references: [id])
+
+  @@unique([userId, reviewId]) // one like per user per review
+}

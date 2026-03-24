@@ -61,3 +61,38 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model Like
+ * 
+ */
+export type Like = Prisma.LikeModel
+/**
+ * Model Media
+ * 
+ */
+export type Media = Prisma.MediaModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
+ * Model Purchase
+ * 
+ */
+export type Purchase = Prisma.PurchaseModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel
+/**
+ * Model Watchlist
+ * 
+ */
+export type Watchlist = Prisma.WatchlistModel

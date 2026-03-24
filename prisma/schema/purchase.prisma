@@ -1,0 +1,21 @@
+model Purchase {
+  id         String        @id @default(uuid())
+  type       PurchaseType
+  price      Float
+
+  userId     String
+  mediaId    String
+
+  createdAt  DateTime      @default(now())
+  expiresAt  DateTime?
+
+  paymentId  String?       @unique
+  payment    Payment?      @relation(fields: [paymentId], references: [id])
+
+  user       User          @relation(fields: [userId], references: [id])
+  media      Media         @relation(fields: [mediaId], references: [id])
+
+  @@unique([userId, mediaId, type])
+  @@index([userId])
+  @@index([mediaId])
+}

@@ -15,6 +15,13 @@ model User {
   sessions           Session[]
   accounts           Account[]
 
+  reviews       Review[]
+  comments      Comment[]
+  likes         Like[]
+  watchlist     Watchlist[]
+  purchases     Purchase[]
+  payments      Payment[]
+
   @@unique([email])
   @@map("user")
 }

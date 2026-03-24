@@ -1,0 +1,33 @@
+model Payment {
+  id                    String        @id @default(uuid())
+  amount                Float
+  currency              String        @default("usd")
+
+  transactionId         String        @unique
+  stripePaymentIntentId String?       @unique
+  stripeSessionId       String?       @unique
+  stripeEventId         String?       @unique
+
+  status                PaymentStatus @default(PENDING)
+  paymentMethod         String?
+
+  invoiceUrl            String?
+  paymentGatewayData    Json?
+
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  // Relations
+  userId                String
+  mediaId               String?
+
+  user                  User          @relation(fields: [userId], references: [id])
+  media                 Media?        @relation(fields: [mediaId], references: [id])
+
+  // ✅ Back relation (NO foreign key here)
+  purchase              Purchase?
+
+  @@index([userId])
+  @@index([mediaId])
+  @@map("payments")
+}

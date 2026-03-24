@@ -54,7 +54,14 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  Comment: 'Comment',
+  Like: 'Like',
+  Media: 'Media',
+  Payment: 'Payment',
+  Purchase: 'Purchase',
+  Review: 'Review',
+  Watchlist: 'Watchlist'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -136,12 +143,123 @@ export const VerificationScalarFieldEnum = {
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
 
 
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  content: 'content',
+  userId: 'userId',
+  reviewId: 'reviewId',
+  parentId: 'parentId',
+  createdAt: 'createdAt'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const LikeScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  reviewId: 'reviewId',
+  createdAt: 'createdAt'
+} as const
+
+export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
+
+
+export const MediaScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  releaseYear: 'releaseYear',
+  director: 'director',
+  cast: 'cast',
+  genres: 'genres',
+  platform: 'platform',
+  pricing: 'pricing',
+  price: 'price',
+  youtubeLink: 'youtubeLink',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  currency: 'currency',
+  transactionId: 'transactionId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  stripeSessionId: 'stripeSessionId',
+  stripeEventId: 'stripeEventId',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  invoiceUrl: 'invoiceUrl',
+  paymentGatewayData: 'paymentGatewayData',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  userId: 'userId',
+  mediaId: 'mediaId'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const PurchaseScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  price: 'price',
+  userId: 'userId',
+  mediaId: 'mediaId',
+  createdAt: 'createdAt',
+  expiresAt: 'expiresAt',
+  paymentId: 'paymentId'
+} as const
+
+export type PurchaseScalarFieldEnum = (typeof PurchaseScalarFieldEnum)[keyof typeof PurchaseScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  rating: 'rating',
+  content: 'content',
+  tags: 'tags',
+  spoiler: 'spoiler',
+  status: 'status',
+  userId: 'userId',
+  mediaId: 'mediaId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
+
+
+export const WatchlistScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  mediaId: 'mediaId',
+  createdAt: 'createdAt'
+} as const
+
+export type WatchlistScalarFieldEnum = (typeof WatchlistScalarFieldEnum)[keyof typeof WatchlistScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -158,4 +276,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

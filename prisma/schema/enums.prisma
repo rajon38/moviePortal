@@ -9,3 +9,33 @@ enum UserStatus {
   BLOCKED
   DELETED
 }
+
+enum MediaType {
+  MOVIE
+  SERIES
+}
+
+enum PricingType {
+  FREE
+  PREMIUM
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum PurchaseType {
+  BUY
+  RENT
+  SUBSCRIPTION
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  CANCELED
+  REFUNDED
+}

@@ -25,3 +25,48 @@ export const UserStatus = {
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
+
+
+export const MediaType = {
+  MOVIE: 'MOVIE',
+  SERIES: 'SERIES'
+} as const
+
+export type MediaType = (typeof MediaType)[keyof typeof MediaType]
+
+
+export const PricingType = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+} as const
+
+export type PricingType = (typeof PricingType)[keyof typeof PricingType]
+
+
+export const ReviewStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ReviewStatus = (typeof ReviewStatus)[keyof typeof ReviewStatus]
+
+
+export const PurchaseType = {
+  BUY: 'BUY',
+  RENT: 'RENT',
+  SUBSCRIPTION: 'SUBSCRIPTION'
+} as const
+
+export type PurchaseType = (typeof PurchaseType)[keyof typeof PurchaseType]
+
+
+export const PaymentStatus = {
+  PENDING: 'PENDING',
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED',
+  CANCELED: 'CANCELED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
