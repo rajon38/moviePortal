@@ -1,5 +1,5 @@
 import status from "http-status";
-import { UserStatus } from "../../../generated/prisma/enums";
+import { UserStatus, Role } from "../../../generated/prisma/enums";
 import AppError from "../../errorHelpers/AppError";
 import { auth } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
@@ -8,7 +8,6 @@ import { IRequestUser } from "../../interfaces/requestUser.interface";
 import { jwtUtils } from "../../utils/jwt";
 import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
-//import { prisma } from "../../lib/prisma";
 import { IChangePasswordPayload, ILoginUserPayload, IRegisterPayload } from "./auth.interface";
 
 const register = async (payload: IRegisterPayload) => {
@@ -24,7 +23,8 @@ const register = async (payload: IRegisterPayload) => {
     }
     
     try {
-        const data = await auth.api.signUpEmail({
+        // Call better-auth API
+        const authResponse = await auth.api.signUpEmail({
             body: {
                 name,
                 email,
@@ -32,54 +32,85 @@ const register = async (payload: IRegisterPayload) => {
             },
         });
         
-        if (!data.user) {
-            throw new AppError(status.BAD_REQUEST, "Failed to register user");
+        // Handle better-auth response
+        if (!authResponse || !authResponse.user) {
+            console.error("Better Auth signup failed:", authResponse);
+            throw new AppError(status.BAD_REQUEST, "Failed to register user with auth provider");
         }
         
-        // Create user record in database
+        // Create or update user record in database
         const user = await prisma.$transaction(async (tx) => {
-            const userTx = await tx.user.create({
+            // Check if user exists (in case of race condition)
+            const existingDbUser = await tx.user.findUnique({
+                where: { id: authResponse.user!.id },
+            });
+            
+            if (existingDbUser) {
+                return existingDbUser;
+            }
+            
+            return await tx.user.create({
                 data: {
-                    id: data.user!.id,
-                    name: data.user!.name,
-                    email: data.user!.email,
+                    id: authResponse.user!.id,
+                    name: authResponse.user!.name,
+                    email: authResponse.user!.email,
+                    role: authResponse.user!.role as Role,
+                    status: authResponse.user!.status as UserStatus,
+                    emailVerified: authResponse.user!.emailVerified || false,
+                    isDeleted: authResponse.user!.isDeleted || false,
                 },
             });
-            return userTx;
         });
         
         const accessToken = tokenUtils.getAccessToken({
-            userId: data.user.id,
-            role: data.user.role || "USER",
-            name: data.user.name,
-            email: data.user.email,
-            status: data.user.status || "ACTIVE",
-            isDeleted: data.user.isDeleted || false,
-            emailVerified: data.user.emailVerified || false,
+            userId: user.id,
+            role: user.role,
+            name: user.name,
+            email: user.email,
+            status: user.status,
+            isDeleted: user.isDeleted,
+            emailVerified: user.emailVerified,
         });
         
         const refreshToken = tokenUtils.getRefreshToken({
-            userId: data.user.id,
-            role: data.user.role || "USER",
-            name: data.user.name,
-            email: data.user.email,
-            status: data.user.status || "ACTIVE",
-            isDeleted: data.user.isDeleted || false,
-            emailVerified: data.user.emailVerified || false,
+            userId: user.id,
+            role: user.role,
+            name: user.name,
+            email: user.email,
+            status: user.status,
+            isDeleted: user.isDeleted,
+            emailVerified: user.emailVerified,
         });
         
         return {
             user,
             accessToken,
             refreshToken,
-            token: data.token || null,
+            token: (authResponse as Record<string, unknown>).token || null,
         };
     } catch (error) {
+        // If Prisma error, delete created user from better-auth
         if (error instanceof AppError) {
             throw error;
         }
-        console.log("Error during registration:", error);
-        throw new AppError(status.INTERNAL_SERVER_ERROR, "Registration failed");
+        
+        // Try to clean up if user was created in better-auth
+        try {
+            const createdUser = await prisma.user.findUnique({
+                where: { email },
+            });
+            if (createdUser) {
+                await prisma.user.delete({
+                    where: { id: createdUser.id },
+                });
+            }
+        } catch (cleanupError) {
+            console.error("Error during cleanup:", cleanupError);
+        }
+        
+        console.error("Error during registration:", error);
+        const errorMessage = error instanceof Error ? error.message : "Registration failed";
+        throw new AppError(status.INTERNAL_SERVER_ERROR, errorMessage);
     }
 }
 
