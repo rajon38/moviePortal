@@ -77,7 +77,20 @@ TInclude = Record<string, unknown>
                     }
                     
                 }
-                // direct field
+                // direct field - check if it's an array field
+                // Array fields: cast, genres, platform
+                const isArrayField = ['cast', 'genres', 'platform'].includes(field);
+                
+                if(isArrayField){
+                    // For array fields, use hasSome for substring matching
+                    return {
+                        [field]: {
+                            hasSome: [searchTerm]
+                        }
+                    }
+                }
+                
+                // For string fields, use contains
                 const stringFilter: PrismaStringFilter = {
                     contains: searchTerm,
                     mode: 'insensitive' as const,

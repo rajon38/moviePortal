@@ -4,7 +4,7 @@ import { multerUpload } from "../../config/multer.config.js";
 import { checkAuth } from "../../middleware/checkAuth.js";
 import { validateRequest } from "../../middleware/validateRequest.js";
 import { MediaController } from "./media.controller.js";
-import { updateMediaMiddleware } from "./media.middleware.js";
+import { updateMediaMiddleware, createMediaMiddleware } from "./media.middleware.js";
 import { MediaValidation } from "./media.validation.js";
 
 const router = Router();
@@ -19,6 +19,7 @@ router.post(
   "/",
   checkAuth(Role.ADMIN),
   multerUpload.fields([{ name: "imageUrl", maxCount: 1 }]),
+  createMediaMiddleware,
   validateRequest(MediaValidation.createMediaZodSchema),
   MediaController.create
 );

@@ -5,5 +5,5 @@ import { MediaRoutes } from "../module/media/media.route";
 const router = Router()
 
 router.use("/users", AuthRoutes)
-router.use("/medias", MediaRoutes)
+router.use("/media", MediaRoutes)
 export const IndexRoute = router;

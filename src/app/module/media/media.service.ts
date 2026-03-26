@@ -56,7 +56,9 @@ const getById = async (id: string) => {
 
 const create = async (user: IRequestUser, payload: ICreateMediaPayload) => {
   const result = await prisma.media.create({
-    data: { ...payload },
+    data: {
+      ...payload,
+    }
   });
   return result;
 };

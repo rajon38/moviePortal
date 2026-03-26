@@ -8,7 +8,7 @@ const createMediaZodSchema = z.object({
   description: z
     .string("Description must be a string")
     .min(1, "Description cannot be empty"),
-  type: z.enum(["MOVIE", "TV_SHOW"], "Type must be either MOVIE or TV_SHOW"),
+  type: z.enum(["MOVIE", "SERIES"], "Type must be either MOVIE or SERIES"),
   releaseYear: z
     .number( "Release year must be a number")
     .int("Release year must be an integer")
@@ -27,9 +27,10 @@ const createMediaZodSchema = z.object({
   platform: z.array(
     z.string("Platform must be a string").min(1, "Platform cannot be empty").max(50, "Platform must be less than 50 characters")
   ).min(1, "At least one platform is required"),
-  pricing: z.enum(["FREE", "PAID"], "Pricing must be either FREE or PAID"),
+  pricing: z.enum(["FREE", "PREMIUM"], "Pricing must be either FREE or PREMIUM"),
   price: z.number("Price must be a number").optional(),
   youtubeLink: z.string("YouTube link must be a string").url("YouTube link must be a valid URL").optional(),
+  imageUrl: z.string("Image URL must be a string").optional(),
 });
 
 const updateMediaZodSchema = z.object({
@@ -66,6 +67,7 @@ const updateMediaZodSchema = z.object({
   pricing: z.enum(["FREE", "PAID"], "Pricing must be either FREE or PAID").optional(),
   price: z.number("Price must be a number").optional(),
   youtubeLink: z.string("YouTube link must be a string").url("YouTube link must be a valid URL").optional(),
+  imageUrl: z.string("Image URL must be a string").optional(),
 });
 
 export const MediaValidation = {
