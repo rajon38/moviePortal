@@ -36,7 +36,6 @@ export const getAll = async (query: IQueryParams) => {
     .fields()
     .execute();
 
-  console.log(result);
   return result;
 };
 
