@@ -39,6 +39,7 @@ export type MediaSumAggregateOutputType = {
 export type MediaMinAggregateOutputType = {
   id: string | null
   title: string | null
+  imageUrl: string | null
   description: string | null
   type: $Enums.MediaType | null
   releaseYear: number | null
@@ -46,6 +47,8 @@ export type MediaMinAggregateOutputType = {
   pricing: $Enums.PricingType | null
   price: number | null
   youtubeLink: string | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +56,7 @@ export type MediaMinAggregateOutputType = {
 export type MediaMaxAggregateOutputType = {
   id: string | null
   title: string | null
+  imageUrl: string | null
   description: string | null
   type: $Enums.MediaType | null
   releaseYear: number | null
@@ -60,6 +64,8 @@ export type MediaMaxAggregateOutputType = {
   pricing: $Enums.PricingType | null
   price: number | null
   youtubeLink: string | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,6 +73,7 @@ export type MediaMaxAggregateOutputType = {
 export type MediaCountAggregateOutputType = {
   id: number
   title: number
+  imageUrl: number
   description: number
   type: number
   releaseYear: number
@@ -77,6 +84,8 @@ export type MediaCountAggregateOutputType = {
   pricing: number
   price: number
   youtubeLink: number
+  isDeleted: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -96,6 +105,7 @@ export type MediaSumAggregateInputType = {
 export type MediaMinAggregateInputType = {
   id?: true
   title?: true
+  imageUrl?: true
   description?: true
   type?: true
   releaseYear?: true
@@ -103,6 +113,8 @@ export type MediaMinAggregateInputType = {
   pricing?: true
   price?: true
   youtubeLink?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -110,6 +122,7 @@ export type MediaMinAggregateInputType = {
 export type MediaMaxAggregateInputType = {
   id?: true
   title?: true
+  imageUrl?: true
   description?: true
   type?: true
   releaseYear?: true
@@ -117,6 +130,8 @@ export type MediaMaxAggregateInputType = {
   pricing?: true
   price?: true
   youtubeLink?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -124,6 +139,7 @@ export type MediaMaxAggregateInputType = {
 export type MediaCountAggregateInputType = {
   id?: true
   title?: true
+  imageUrl?: true
   description?: true
   type?: true
   releaseYear?: true
@@ -134,6 +150,8 @@ export type MediaCountAggregateInputType = {
   pricing?: true
   price?: true
   youtubeLink?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -228,6 +246,7 @@ export type MediaGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type MediaGroupByOutputType = {
   id: string
   title: string
+  imageUrl: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -238,6 +257,8 @@ export type MediaGroupByOutputType = {
   pricing: $Enums.PricingType
   price: number | null
   youtubeLink: string | null
+  isDeleted: boolean
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: MediaCountAggregateOutputType | null
@@ -268,6 +289,7 @@ export type MediaWhereInput = {
   NOT?: Prisma.MediaWhereInput | Prisma.MediaWhereInput[]
   id?: Prisma.StringFilter<"Media"> | string
   title?: Prisma.StringFilter<"Media"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Media"> | string | null
   description?: Prisma.StringFilter<"Media"> | string
   type?: Prisma.EnumMediaTypeFilter<"Media"> | $Enums.MediaType
   releaseYear?: Prisma.IntFilter<"Media"> | number
@@ -278,6 +300,8 @@ export type MediaWhereInput = {
   pricing?: Prisma.EnumPricingTypeFilter<"Media"> | $Enums.PricingType
   price?: Prisma.FloatNullableFilter<"Media"> | number | null
   youtubeLink?: Prisma.StringNullableFilter<"Media"> | string | null
+  isDeleted?: Prisma.BoolFilter<"Media"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Media"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   reviews?: Prisma.ReviewListRelationFilter
@@ -289,6 +313,7 @@ export type MediaWhereInput = {
 export type MediaOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
@@ -299,6 +324,8 @@ export type MediaOrderByWithRelationInput = {
   pricing?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   youtubeLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
@@ -313,6 +340,7 @@ export type MediaWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MediaWhereInput[]
   NOT?: Prisma.MediaWhereInput | Prisma.MediaWhereInput[]
   title?: Prisma.StringFilter<"Media"> | string
+  imageUrl?: Prisma.StringNullableFilter<"Media"> | string | null
   description?: Prisma.StringFilter<"Media"> | string
   type?: Prisma.EnumMediaTypeFilter<"Media"> | $Enums.MediaType
   releaseYear?: Prisma.IntFilter<"Media"> | number
@@ -323,6 +351,8 @@ export type MediaWhereUniqueInput = Prisma.AtLeast<{
   pricing?: Prisma.EnumPricingTypeFilter<"Media"> | $Enums.PricingType
   price?: Prisma.FloatNullableFilter<"Media"> | number | null
   youtubeLink?: Prisma.StringNullableFilter<"Media"> | string | null
+  isDeleted?: Prisma.BoolFilter<"Media"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Media"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Media"> | Date | string
   reviews?: Prisma.ReviewListRelationFilter
@@ -334,6 +364,7 @@ export type MediaWhereUniqueInput = Prisma.AtLeast<{
 export type MediaOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
@@ -344,6 +375,8 @@ export type MediaOrderByWithAggregationInput = {
   pricing?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   youtubeLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.MediaCountOrderByAggregateInput
@@ -359,6 +392,7 @@ export type MediaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.MediaScalarWhereWithAggregatesInput | Prisma.MediaScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Media"> | string
   title?: Prisma.StringWithAggregatesFilter<"Media"> | string
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Media"> | string | null
   description?: Prisma.StringWithAggregatesFilter<"Media"> | string
   type?: Prisma.EnumMediaTypeWithAggregatesFilter<"Media"> | $Enums.MediaType
   releaseYear?: Prisma.IntWithAggregatesFilter<"Media"> | number
@@ -369,6 +403,8 @@ export type MediaScalarWhereWithAggregatesInput = {
   pricing?: Prisma.EnumPricingTypeWithAggregatesFilter<"Media"> | $Enums.PricingType
   price?: Prisma.FloatNullableWithAggregatesFilter<"Media"> | number | null
   youtubeLink?: Prisma.StringNullableWithAggregatesFilter<"Media"> | string | null
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"Media"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Media"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Media"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Media"> | Date | string
 }
@@ -376,6 +412,7 @@ export type MediaScalarWhereWithAggregatesInput = {
 export type MediaCreateInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -386,6 +423,8 @@ export type MediaCreateInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutMediaInput
@@ -397,6 +436,7 @@ export type MediaCreateInput = {
 export type MediaUncheckedCreateInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -407,6 +447,8 @@ export type MediaUncheckedCreateInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMediaInput
@@ -418,6 +460,7 @@ export type MediaUncheckedCreateInput = {
 export type MediaUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -428,6 +471,8 @@ export type MediaUpdateInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutMediaNestedInput
@@ -439,6 +484,7 @@ export type MediaUpdateInput = {
 export type MediaUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -449,6 +495,8 @@ export type MediaUncheckedUpdateInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMediaNestedInput
@@ -460,6 +508,7 @@ export type MediaUncheckedUpdateInput = {
 export type MediaCreateManyInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -470,6 +519,8 @@ export type MediaCreateManyInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -477,6 +528,7 @@ export type MediaCreateManyInput = {
 export type MediaUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -487,6 +539,8 @@ export type MediaUpdateManyMutationInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -494,6 +548,7 @@ export type MediaUpdateManyMutationInput = {
 export type MediaUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -504,6 +559,8 @@ export type MediaUncheckedUpdateManyInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -519,6 +576,7 @@ export type StringNullableListFilter<$PrismaModel = never> = {
 export type MediaCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
@@ -529,6 +587,8 @@ export type MediaCountOrderByAggregateInput = {
   pricing?: Prisma.SortOrder
   price?: Prisma.SortOrder
   youtubeLink?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -541,6 +601,7 @@ export type MediaAvgOrderByAggregateInput = {
 export type MediaMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
@@ -548,6 +609,8 @@ export type MediaMaxOrderByAggregateInput = {
   pricing?: Prisma.SortOrder
   price?: Prisma.SortOrder
   youtubeLink?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -555,6 +618,7 @@ export type MediaMaxOrderByAggregateInput = {
 export type MediaMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
   description?: Prisma.SortOrder
   type?: Prisma.SortOrder
   releaseYear?: Prisma.SortOrder
@@ -562,6 +626,8 @@ export type MediaMinOrderByAggregateInput = {
   pricing?: Prisma.SortOrder
   price?: Prisma.SortOrder
   youtubeLink?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -693,6 +759,7 @@ export type MediaUpdateOneRequiredWithoutWatchlistNestedInput = {
 export type MediaCreateWithoutPaymentInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -703,6 +770,8 @@ export type MediaCreateWithoutPaymentInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutMediaInput
@@ -713,6 +782,7 @@ export type MediaCreateWithoutPaymentInput = {
 export type MediaUncheckedCreateWithoutPaymentInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -723,6 +793,8 @@ export type MediaUncheckedCreateWithoutPaymentInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMediaInput
@@ -749,6 +821,7 @@ export type MediaUpdateToOneWithWhereWithoutPaymentInput = {
 export type MediaUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -759,6 +832,8 @@ export type MediaUpdateWithoutPaymentInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutMediaNestedInput
@@ -769,6 +844,7 @@ export type MediaUpdateWithoutPaymentInput = {
 export type MediaUncheckedUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -779,6 +855,8 @@ export type MediaUncheckedUpdateWithoutPaymentInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMediaNestedInput
@@ -789,6 +867,7 @@ export type MediaUncheckedUpdateWithoutPaymentInput = {
 export type MediaCreateWithoutPurchasesInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -799,6 +878,8 @@ export type MediaCreateWithoutPurchasesInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutMediaInput
@@ -809,6 +890,7 @@ export type MediaCreateWithoutPurchasesInput = {
 export type MediaUncheckedCreateWithoutPurchasesInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -819,6 +901,8 @@ export type MediaUncheckedCreateWithoutPurchasesInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMediaInput
@@ -845,6 +929,7 @@ export type MediaUpdateToOneWithWhereWithoutPurchasesInput = {
 export type MediaUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -855,6 +940,8 @@ export type MediaUpdateWithoutPurchasesInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutMediaNestedInput
@@ -865,6 +952,7 @@ export type MediaUpdateWithoutPurchasesInput = {
 export type MediaUncheckedUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -875,6 +963,8 @@ export type MediaUncheckedUpdateWithoutPurchasesInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMediaNestedInput
@@ -885,6 +975,7 @@ export type MediaUncheckedUpdateWithoutPurchasesInput = {
 export type MediaCreateWithoutReviewsInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -895,6 +986,8 @@ export type MediaCreateWithoutReviewsInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   watchlist?: Prisma.WatchlistCreateNestedManyWithoutMediaInput
@@ -905,6 +998,7 @@ export type MediaCreateWithoutReviewsInput = {
 export type MediaUncheckedCreateWithoutReviewsInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -915,6 +1009,8 @@ export type MediaUncheckedCreateWithoutReviewsInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   watchlist?: Prisma.WatchlistUncheckedCreateNestedManyWithoutMediaInput
@@ -941,6 +1037,7 @@ export type MediaUpdateToOneWithWhereWithoutReviewsInput = {
 export type MediaUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -951,6 +1048,8 @@ export type MediaUpdateWithoutReviewsInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   watchlist?: Prisma.WatchlistUpdateManyWithoutMediaNestedInput
@@ -961,6 +1060,7 @@ export type MediaUpdateWithoutReviewsInput = {
 export type MediaUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -971,6 +1071,8 @@ export type MediaUncheckedUpdateWithoutReviewsInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   watchlist?: Prisma.WatchlistUncheckedUpdateManyWithoutMediaNestedInput
@@ -981,6 +1083,7 @@ export type MediaUncheckedUpdateWithoutReviewsInput = {
 export type MediaCreateWithoutWatchlistInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -991,6 +1094,8 @@ export type MediaCreateWithoutWatchlistInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewCreateNestedManyWithoutMediaInput
@@ -1001,6 +1106,7 @@ export type MediaCreateWithoutWatchlistInput = {
 export type MediaUncheckedCreateWithoutWatchlistInput = {
   id?: string
   title: string
+  imageUrl?: string | null
   description: string
   type: $Enums.MediaType
   releaseYear: number
@@ -1011,6 +1117,8 @@ export type MediaUncheckedCreateWithoutWatchlistInput = {
   pricing?: $Enums.PricingType
   price?: number | null
   youtubeLink?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutMediaInput
@@ -1037,6 +1145,7 @@ export type MediaUpdateToOneWithWhereWithoutWatchlistInput = {
 export type MediaUpdateWithoutWatchlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1047,6 +1156,8 @@ export type MediaUpdateWithoutWatchlistInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUpdateManyWithoutMediaNestedInput
@@ -1057,6 +1168,7 @@ export type MediaUpdateWithoutWatchlistInput = {
 export type MediaUncheckedUpdateWithoutWatchlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   description?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.EnumMediaTypeFieldUpdateOperationsInput | $Enums.MediaType
   releaseYear?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1067,6 +1179,8 @@ export type MediaUncheckedUpdateWithoutWatchlistInput = {
   pricing?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
   price?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   youtubeLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutMediaNestedInput
@@ -1135,6 +1249,7 @@ export type MediaCountOutputTypeCountPaymentArgs<ExtArgs extends runtime.Types.E
 export type MediaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  imageUrl?: boolean
   description?: boolean
   type?: boolean
   releaseYear?: boolean
@@ -1145,6 +1260,8 @@ export type MediaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   pricing?: boolean
   price?: boolean
   youtubeLink?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   reviews?: boolean | Prisma.Media$reviewsArgs<ExtArgs>
@@ -1157,6 +1274,7 @@ export type MediaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type MediaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  imageUrl?: boolean
   description?: boolean
   type?: boolean
   releaseYear?: boolean
@@ -1167,6 +1285,8 @@ export type MediaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   pricing?: boolean
   price?: boolean
   youtubeLink?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["media"]>
@@ -1174,6 +1294,7 @@ export type MediaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type MediaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   title?: boolean
+  imageUrl?: boolean
   description?: boolean
   type?: boolean
   releaseYear?: boolean
@@ -1184,6 +1305,8 @@ export type MediaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   pricing?: boolean
   price?: boolean
   youtubeLink?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["media"]>
@@ -1191,6 +1314,7 @@ export type MediaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type MediaSelectScalar = {
   id?: boolean
   title?: boolean
+  imageUrl?: boolean
   description?: boolean
   type?: boolean
   releaseYear?: boolean
@@ -1201,11 +1325,13 @@ export type MediaSelectScalar = {
   pricing?: boolean
   price?: boolean
   youtubeLink?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type MediaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "type" | "releaseYear" | "director" | "cast" | "genres" | "platform" | "pricing" | "price" | "youtubeLink" | "createdAt" | "updatedAt", ExtArgs["result"]["media"]>
+export type MediaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "imageUrl" | "description" | "type" | "releaseYear" | "director" | "cast" | "genres" | "platform" | "pricing" | "price" | "youtubeLink" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["media"]>
 export type MediaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   reviews?: boolean | Prisma.Media$reviewsArgs<ExtArgs>
   watchlist?: boolean | Prisma.Media$watchlistArgs<ExtArgs>
@@ -1227,6 +1353,7 @@ export type $MediaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     title: string
+    imageUrl: string | null
     description: string
     type: $Enums.MediaType
     releaseYear: number
@@ -1237,6 +1364,8 @@ export type $MediaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     pricing: $Enums.PricingType
     price: number | null
     youtubeLink: string | null
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["media"]>
@@ -1668,6 +1797,7 @@ export interface Prisma__MediaClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface MediaFieldRefs {
   readonly id: Prisma.FieldRef<"Media", 'String'>
   readonly title: Prisma.FieldRef<"Media", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Media", 'String'>
   readonly description: Prisma.FieldRef<"Media", 'String'>
   readonly type: Prisma.FieldRef<"Media", 'MediaType'>
   readonly releaseYear: Prisma.FieldRef<"Media", 'Int'>
@@ -1678,6 +1808,8 @@ export interface MediaFieldRefs {
   readonly pricing: Prisma.FieldRef<"Media", 'PricingType'>
   readonly price: Prisma.FieldRef<"Media", 'Float'>
   readonly youtubeLink: Prisma.FieldRef<"Media", 'String'>
+  readonly isDeleted: Prisma.FieldRef<"Media", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"Media", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Media", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Media", 'DateTime'>
 }

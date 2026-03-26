@@ -13,61 +13,73 @@ import { IChangePasswordPayload, ILoginUserPayload, IRegisterPayload } from "./a
 
 const register = async (payload: IRegisterPayload) => {
     const { name, email, password } = payload;
-    const data = await auth.api.signUpEmail({
-        body: {
-            name,
-            email,
-            password
-        }
-    })
-    if (!data.user) {
-        throw new AppError(status.BAD_REQUEST, "Failed to register patient");
-    }
-
-    try {
-    const patient = await prisma.$transaction(async (tx) => {
-            const patientTx = await tx.user.create({
-            data: {
-                id: data.user!.id,
-                name: payload.name,
-                email: payload.email,
-            }
-        })
-        return patientTx;
+    
+    // Check if user already exists
+    const existingUser = await prisma.user.findUnique({
+        where: { email },
     });
-    const accessToken = tokenUtils.getAccessToken({
-        userId: data.user.id,
-        role: data.user.role,
-        name: data.user.name,
-        email: data.user.email,
-        status: data.user.status,
-        isDeleted: data.user.isDeleted,
-        emailVerified: data.user.emailVerified,
-    })
-
-    const refreshToken = tokenUtils.getRefreshToken({
-        userId: data.user.id,
-        role: data.user.role,
-        name: data.user.name,
-        email: data.user.email,
-        status: data.user.status,
-        isDeleted: data.user.isDeleted,
-        emailVerified: data.user.emailVerified,
-    })
-        return {
-        ...data,
-        accessToken,
-        refreshToken,
-        patient
-    };
-    } catch (error) {
-        console.log("Error creating patient record:", error);
-        await prisma.user.delete({
-            where: {
-                id: data.user!.id
-            }
+    
+    if (existingUser) {
+        throw new AppError(status.CONFLICT, "Email already registered");
+    }
+    
+    try {
+        const data = await auth.api.signUpEmail({
+            body: {
+                name,
+                email,
+                password,
+            },
         });
-        throw error;
+        
+        if (!data.user) {
+            throw new AppError(status.BAD_REQUEST, "Failed to register user");
+        }
+        
+        // Create user record in database
+        const user = await prisma.$transaction(async (tx) => {
+            const userTx = await tx.user.create({
+                data: {
+                    id: data.user!.id,
+                    name: data.user!.name,
+                    email: data.user!.email,
+                },
+            });
+            return userTx;
+        });
+        
+        const accessToken = tokenUtils.getAccessToken({
+            userId: data.user.id,
+            role: data.user.role || "USER",
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status || "ACTIVE",
+            isDeleted: data.user.isDeleted || false,
+            emailVerified: data.user.emailVerified || false,
+        });
+        
+        const refreshToken = tokenUtils.getRefreshToken({
+            userId: data.user.id,
+            role: data.user.role || "USER",
+            name: data.user.name,
+            email: data.user.email,
+            status: data.user.status || "ACTIVE",
+            isDeleted: data.user.isDeleted || false,
+            emailVerified: data.user.emailVerified || false,
+        });
+        
+        return {
+            user,
+            accessToken,
+            refreshToken,
+            token: data.token || null,
+        };
+    } catch (error) {
+        if (error instanceof AppError) {
+            throw error;
+        }
+        console.log("Error during registration:", error);
+        throw new AppError(status.INTERNAL_SERVER_ERROR, "Registration failed");
     }
 }
 

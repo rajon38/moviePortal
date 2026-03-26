@@ -10,7 +10,6 @@ import cors from 'cors';
 import { envVars } from './app/config/env';
 import qs from 'qs';
 //import { PaymentController } from './app/module/payment/payment.controller';
-import cron from 'node-cron';
 import { auth } from './app/lib/auth';
 //import { AppointmentService } from './app/module/appointment/appointment.service';
 
@@ -36,15 +35,6 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
-
-cron.schedule("*/25 * * * *", async () => {
-    try {
-        //await AppointmentService.cancelUnpaidAppointments();
-        console.log("Cron job completed: Unpaid appointments cancelled successfully.");
-    } catch (error : any) {
-        console.error("Error during cron job execution:", error.message);
-    }
-});
 // Importing routes
 app.use("/api/v1", IndexRoute);
 // Basic route

@@ -168,6 +168,7 @@ export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof Like
 export const MediaScalarFieldEnum = {
   id: 'id',
   title: 'title',
+  imageUrl: 'imageUrl',
   description: 'description',
   type: 'type',
   releaseYear: 'releaseYear',
@@ -178,6 +179,8 @@ export const MediaScalarFieldEnum = {
   pricing: 'pricing',
   price: 'price',
   youtubeLink: 'youtubeLink',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -229,6 +232,8 @@ export const ReviewScalarFieldEnum = {
   status: 'status',
   userId: 'userId',
   mediaId: 'mediaId',
+  isDeleted: 'isDeleted',
+  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

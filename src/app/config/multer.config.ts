@@ -25,7 +25,7 @@ const storage = new CloudinaryStorage({
         const folder = extension === "pdf" ? "pdfs" : "images";
 
         return {
-            folder: `PH-medicare/${folder}`,
+            folder: `Movies/${folder}`,
             public_id: uniqueName,
             resource_type: "auto",
         };

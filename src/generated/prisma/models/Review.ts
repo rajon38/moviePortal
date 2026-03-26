@@ -42,6 +42,8 @@ export type ReviewMinAggregateOutputType = {
   status: $Enums.ReviewStatus | null
   userId: string | null
   mediaId: string | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -54,6 +56,8 @@ export type ReviewMaxAggregateOutputType = {
   status: $Enums.ReviewStatus | null
   userId: string | null
   mediaId: string | null
+  isDeleted: boolean | null
+  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -67,6 +71,8 @@ export type ReviewCountAggregateOutputType = {
   status: number
   userId: number
   mediaId: number
+  isDeleted: number
+  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -89,6 +95,8 @@ export type ReviewMinAggregateInputType = {
   status?: true
   userId?: true
   mediaId?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -101,6 +109,8 @@ export type ReviewMaxAggregateInputType = {
   status?: true
   userId?: true
   mediaId?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -114,6 +124,8 @@ export type ReviewCountAggregateInputType = {
   status?: true
   userId?: true
   mediaId?: true
+  isDeleted?: true
+  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -214,6 +226,8 @@ export type ReviewGroupByOutputType = {
   status: $Enums.ReviewStatus
   userId: string
   mediaId: string
+  isDeleted: boolean
+  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ReviewCountAggregateOutputType | null
@@ -250,6 +264,8 @@ export type ReviewWhereInput = {
   status?: Prisma.EnumReviewStatusFilter<"Review"> | $Enums.ReviewStatus
   userId?: Prisma.StringFilter<"Review"> | string
   mediaId?: Prisma.StringFilter<"Review"> | string
+  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -267,6 +283,8 @@ export type ReviewOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mediaId?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -287,6 +305,8 @@ export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumReviewStatusFilter<"Review"> | $Enums.ReviewStatus
   userId?: Prisma.StringFilter<"Review"> | string
   mediaId?: Prisma.StringFilter<"Review"> | string
+  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -304,6 +324,8 @@ export type ReviewOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mediaId?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReviewCountOrderByAggregateInput
@@ -325,6 +347,8 @@ export type ReviewScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumReviewStatusWithAggregatesFilter<"Review"> | $Enums.ReviewStatus
   userId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   mediaId?: Prisma.StringWithAggregatesFilter<"Review"> | string
+  isDeleted?: Prisma.BoolWithAggregatesFilter<"Review"> | boolean
+  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
 }
@@ -336,6 +360,8 @@ export type ReviewCreateInput = {
   tags?: Prisma.ReviewCreatetagsInput | string[]
   spoiler?: boolean
   status?: $Enums.ReviewStatus
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -353,6 +379,8 @@ export type ReviewUncheckedCreateInput = {
   status?: $Enums.ReviewStatus
   userId: string
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutReviewInput
@@ -366,6 +394,8 @@ export type ReviewUpdateInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -383,6 +413,8 @@ export type ReviewUncheckedUpdateInput = {
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutReviewNestedInput
@@ -398,6 +430,8 @@ export type ReviewCreateManyInput = {
   status?: $Enums.ReviewStatus
   userId: string
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -409,6 +443,8 @@ export type ReviewUpdateManyMutationInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -422,6 +458,8 @@ export type ReviewUncheckedUpdateManyInput = {
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -450,6 +488,8 @@ export type ReviewCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mediaId?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -466,6 +506,8 @@ export type ReviewMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mediaId?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -478,6 +520,8 @@ export type ReviewMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   mediaId?: Prisma.SortOrder
+  isDeleted?: Prisma.SortOrder
+  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -618,6 +662,8 @@ export type ReviewCreateWithoutUserInput = {
   tags?: Prisma.ReviewCreatetagsInput | string[]
   spoiler?: boolean
   status?: $Enums.ReviewStatus
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   media: Prisma.MediaCreateNestedOneWithoutReviewsInput
@@ -633,6 +679,8 @@ export type ReviewUncheckedCreateWithoutUserInput = {
   spoiler?: boolean
   status?: $Enums.ReviewStatus
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutReviewInput
@@ -677,6 +725,8 @@ export type ReviewScalarWhereInput = {
   status?: Prisma.EnumReviewStatusFilter<"Review"> | $Enums.ReviewStatus
   userId?: Prisma.StringFilter<"Review"> | string
   mediaId?: Prisma.StringFilter<"Review"> | string
+  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
+  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
 }
@@ -688,6 +738,8 @@ export type ReviewCreateWithoutCommentsInput = {
   tags?: Prisma.ReviewCreatetagsInput | string[]
   spoiler?: boolean
   status?: $Enums.ReviewStatus
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -704,6 +756,8 @@ export type ReviewUncheckedCreateWithoutCommentsInput = {
   status?: $Enums.ReviewStatus
   userId: string
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   likes?: Prisma.LikeUncheckedCreateNestedManyWithoutReviewInput
@@ -732,6 +786,8 @@ export type ReviewUpdateWithoutCommentsInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -748,6 +804,8 @@ export type ReviewUncheckedUpdateWithoutCommentsInput = {
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   likes?: Prisma.LikeUncheckedUpdateManyWithoutReviewNestedInput
@@ -760,6 +818,8 @@ export type ReviewCreateWithoutLikesInput = {
   tags?: Prisma.ReviewCreatetagsInput | string[]
   spoiler?: boolean
   status?: $Enums.ReviewStatus
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -776,6 +836,8 @@ export type ReviewUncheckedCreateWithoutLikesInput = {
   status?: $Enums.ReviewStatus
   userId: string
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutReviewInput
@@ -804,6 +866,8 @@ export type ReviewUpdateWithoutLikesInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -820,6 +884,8 @@ export type ReviewUncheckedUpdateWithoutLikesInput = {
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutReviewNestedInput
@@ -832,6 +898,8 @@ export type ReviewCreateWithoutMediaInput = {
   tags?: Prisma.ReviewCreatetagsInput | string[]
   spoiler?: boolean
   status?: $Enums.ReviewStatus
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReviewsInput
@@ -847,6 +915,8 @@ export type ReviewUncheckedCreateWithoutMediaInput = {
   spoiler?: boolean
   status?: $Enums.ReviewStatus
   userId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   comments?: Prisma.CommentUncheckedCreateNestedManyWithoutReviewInput
@@ -887,6 +957,8 @@ export type ReviewCreateManyUserInput = {
   spoiler?: boolean
   status?: $Enums.ReviewStatus
   mediaId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -898,6 +970,8 @@ export type ReviewUpdateWithoutUserInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   media?: Prisma.MediaUpdateOneRequiredWithoutReviewsNestedInput
@@ -913,6 +987,8 @@ export type ReviewUncheckedUpdateWithoutUserInput = {
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutReviewNestedInput
@@ -927,6 +1003,8 @@ export type ReviewUncheckedUpdateManyWithoutUserInput = {
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   mediaId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -939,6 +1017,8 @@ export type ReviewCreateManyMediaInput = {
   spoiler?: boolean
   status?: $Enums.ReviewStatus
   userId: string
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -950,6 +1030,8 @@ export type ReviewUpdateWithoutMediaInput = {
   tags?: Prisma.ReviewUpdatetagsInput | string[]
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReviewsNestedInput
@@ -965,6 +1047,8 @@ export type ReviewUncheckedUpdateWithoutMediaInput = {
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   comments?: Prisma.CommentUncheckedUpdateManyWithoutReviewNestedInput
@@ -979,6 +1063,8 @@ export type ReviewUncheckedUpdateManyWithoutMediaInput = {
   spoiler?: Prisma.BoolFieldUpdateOperationsInput | boolean
   status?: Prisma.EnumReviewStatusFieldUpdateOperationsInput | $Enums.ReviewStatus
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1032,6 +1118,8 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   status?: boolean
   userId?: boolean
   mediaId?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1050,6 +1138,8 @@ export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   status?: boolean
   userId?: boolean
   mediaId?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1065,6 +1155,8 @@ export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   status?: boolean
   userId?: boolean
   mediaId?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1080,11 +1172,13 @@ export type ReviewSelectScalar = {
   status?: boolean
   userId?: boolean
   mediaId?: boolean
+  isDeleted?: boolean
+  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "content" | "tags" | "spoiler" | "status" | "userId" | "mediaId" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rating" | "content" | "tags" | "spoiler" | "status" | "userId" | "mediaId" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   media?: boolean | Prisma.MediaDefaultArgs<ExtArgs>
@@ -1118,6 +1212,8 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     status: $Enums.ReviewStatus
     userId: string
     mediaId: string
+    isDeleted: boolean
+    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["review"]>
@@ -1555,6 +1651,8 @@ export interface ReviewFieldRefs {
   readonly status: Prisma.FieldRef<"Review", 'ReviewStatus'>
   readonly userId: Prisma.FieldRef<"Review", 'String'>
   readonly mediaId: Prisma.FieldRef<"Review", 'String'>
+  readonly isDeleted: Prisma.FieldRef<"Review", 'Boolean'>
+  readonly deletedAt: Prisma.FieldRef<"Review", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Review", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Review", 'DateTime'>
 }

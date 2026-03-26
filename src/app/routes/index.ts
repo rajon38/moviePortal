@@ -1,7 +1,9 @@
 import { Router } from "express";
 import { AuthRoutes } from "../module/auth/auth.route";
+import { MediaRoutes } from "../module/media/media.route";
 
 const router = Router()
 
-router.use("/auths", AuthRoutes)
+router.use("/users", AuthRoutes)
+router.use("/medias", MediaRoutes)
 export const IndexRoute = router;
