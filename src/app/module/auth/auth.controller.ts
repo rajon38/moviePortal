@@ -8,6 +8,8 @@ import AppError from "../../errorHelpers/AppError";
 import { CookieUtils } from "../../utils/cookie";
 import { envVars } from "../../config/env";
 import { auth } from "../../lib/auth";
+import { IRequestUser } from "../../interfaces/requestUser.interface";
+import { IUpdateProfilePayload } from "./auth.interface";
 
 const register = catchAsync(async (req: Request, res: Response) => {
     const payload = req.body;
@@ -238,6 +240,18 @@ const handleOAuthError = catchAsync((req: Request, res: Response) => {
     const error = req.query.error as string || "oauth_failed";
     res.redirect(`${envVars.FRONTEND_URL}/login?error=${error}`);
 })
+
+const updateProfile = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as IRequestUser;
+  const payload = req.body as IUpdateProfilePayload;
+    const result = await AuthService.updateProfile(user, payload);
+    sendResponse(res, {
+        httpStatusCode: status.OK,
+        success: true,
+        message: "Profile updated successfully",
+        data: result
+    });
+})
 export const AuthController = {
     register,
     login,
@@ -251,4 +265,5 @@ export const AuthController = {
     googleLogin,
     googleLoginSuccess,
     handleOAuthError,
+    updateProfile,
 }

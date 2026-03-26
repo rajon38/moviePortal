@@ -82,6 +82,50 @@ const deleteById = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const toggleLike = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as IRequestUser;
+  const result = await ReviewService.toggleLike(user, req.params.id as string);
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: result.liked ? "Review liked successfully" : "Review unliked successfully",
+    data: result,
+  });
+});
+
+const createComment = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as IRequestUser;
+  const result = await ReviewService.createComment(user, req.body);
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.CREATED,
+    message: "Comment created successfully",
+    data: result,
+  });
+});
+
+const updateComment = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as IRequestUser;
+  const result = await ReviewService.updateComment(user, req.params.id as string, req.body);
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: "Comment updated successfully",
+    data: result,
+  });
+});
+
+const deleteComment = catchAsync(async (req: Request, res: Response) => {
+  const user = req.user as IRequestUser;
+  const result = await ReviewService.deleteComment(user, req.params.id as string);
+  sendResponse(res, {
+    success: true,
+    httpStatusCode: status.OK,
+    message: "Comment deleted successfully",
+    data: result,
+  });
+});
+
 export const ReviewController = {
   getAll,
   getById,
@@ -89,4 +133,8 @@ export const ReviewController = {
   updateById,
   updateReviewStatusById,
   deleteById,
+  toggleLike,
+  createComment,
+  updateComment,
+  deleteComment,
 };

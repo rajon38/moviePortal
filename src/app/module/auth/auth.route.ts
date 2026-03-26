@@ -4,6 +4,8 @@ import { checkAuth } from "../../middleware/checkAuth";
 import { Role } from "../../../generated/prisma/enums";
 import { validateRequest } from "../../middleware/validateRequest";
 import { AuthValidation } from "./auth.validation";
+import { multerUpload } from "../../config/multer.config";
+import { updateProfileMiddleware } from "./auth.middleware";
 
 const router = Router();
 
@@ -24,5 +26,9 @@ router.post("/reset-password", validateRequest(AuthValidation.resetPasswordZodSc
 router.get("/login/google", AuthController.googleLogin);
 router.get("/google/success", AuthController.googleLoginSuccess);
 router.get("/oauth/error", AuthController.handleOAuthError);
+router.patch("/updateProfile", checkAuth(Role.ADMIN, Role.USER),
+  multerUpload.fields([{ name: "image", maxCount: 1 }]),
+  updateProfileMiddleware,
+  AuthController.updateProfile);
 
 export const AuthRoutes = router;

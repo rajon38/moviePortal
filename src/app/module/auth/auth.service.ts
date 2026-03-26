@@ -8,7 +8,7 @@ import { IRequestUser } from "../../interfaces/requestUser.interface";
 import { jwtUtils } from "../../utils/jwt";
 import { envVars } from "../../config/env";
 import { JwtPayload } from "jsonwebtoken";
-import { IChangePasswordPayload, ILoginUserPayload, IRegisterPayload } from "./auth.interface";
+import { IChangePasswordPayload, ILoginUserPayload, IRegisterPayload, IUpdateProfilePayload } from "./auth.interface";
 
 const register = async (payload: IRegisterPayload) => {
     const { name, email, password } = payload;
@@ -438,6 +438,22 @@ const googleLoginSuccess = async (session : Record<string, any>) =>{
     }
 }
 
+const updateProfile = async (user: IRequestUser, payload: IUpdateProfilePayload) => {
+    const { name, image } = payload;
+
+    const result = await prisma.user.update({
+        where: {
+            id: user.userId,
+        },
+        data: {
+            name,
+            image,
+        }
+    })
+
+    return result;
+}
+
 export const AuthService = {
     register,
     login,
@@ -449,4 +465,5 @@ export const AuthService = {
     forgetPassword,
     resetPassword,
     googleLoginSuccess,
+    updateProfile,
 }

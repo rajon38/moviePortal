@@ -26,7 +26,47 @@ export const getAll = async (query: IQueryParams) => {
       // basic include (lightweight)
       reviews: {
         include: {
-          user: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          comments: {
+        where: {
+          parentId: null,
+        },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              image: true,
+            },
+          },
+          replies: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                  image: true,
+                },
+              },
+            },
+          },
+        },
+      },
+          _count: {
+            select: {
+              likes: true,
+              comments: true,
+            },
+          },
         },
       },
     })
@@ -36,7 +76,31 @@ export const getAll = async (query: IQueryParams) => {
     .fields()
     .execute();
 
-  return result;
+  // Add average rating to each media
+  const dataWithAvgRating = await Promise.all(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result.data.map(async (media: any) => {
+      const avgRating = await prisma.review.aggregate({
+        where: {
+          mediaId: media.id,
+          isDeleted: false,
+        },
+        _avg: {
+          rating: true,
+        },
+      });
+      
+      return {
+        ...media,
+        avgRating: avgRating._avg.rating ? parseFloat(avgRating._avg.rating.toFixed(2)) : null,
+      };
+    })
+  );
+
+  return {
+    ...result,
+    data: dataWithAvgRating,
+  };
 };
 
 const getById = async (id: string) => {
@@ -50,7 +114,22 @@ const getById = async (id: string) => {
       },
     }
   });
-  return result;
+
+  // Get average rating
+  const avgRating = await prisma.review.aggregate({
+    where: {
+      mediaId: id,
+      isDeleted: false,
+    },
+    _avg: {
+      rating: true,
+    },
+  });
+
+  return {
+    ...result,
+    avgRating: avgRating._avg.rating ? parseFloat(avgRating._avg.rating.toFixed(2)) : null,
+  };
 };
 
 const create = async (user: IRequestUser, payload: ICreateMediaPayload) => {

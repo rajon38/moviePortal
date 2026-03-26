@@ -18,6 +18,8 @@ router.post(
   ReviewController.create
 );
 
+router.post("/:id/like", checkAuth(Role.USER), ReviewController.toggleLike);
+
 router.patch(
   "/:id",
   checkAuth(Role.USER),
@@ -32,5 +34,11 @@ router.patch(
 );
 
 router.delete("/:id", checkAuth(Role.ADMIN), ReviewController.deleteById);
+
+router.post("/comments", checkAuth(Role.USER), ReviewController.createComment);
+
+router.patch("/comments/:id", checkAuth(Role.USER), ReviewController.updateComment);
+
+router.delete("/comments/:id", checkAuth(Role.USER), ReviewController.deleteComment);
 
 export const ReviewRoutes = router;
