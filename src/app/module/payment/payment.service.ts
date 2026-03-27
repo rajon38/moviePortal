@@ -6,6 +6,7 @@ import { prisma } from "../../lib/prisma";
 import { generateInvoicePdf } from "./payment.utils";
 import status from "http-status";
 import { uploadFileToCloudinary } from "../../config/cloudinary.config";
+import { sendEmail } from "../../utils/email";
 
 const handleStripeWebhookEvent = async (event: Stripe.Event) => {
   // ✅ Prevent duplicate processing (idempotency)
@@ -112,6 +113,48 @@ const handleStripeWebhookEvent = async (event: Stripe.Event) => {
       });
 
       console.log("✅ Payment success for purchase:", purchaseId);
+
+      // 📧 Send invoice email outside transaction (non-blocking)
+      if (session.payment_status === "paid") {
+        try {
+          await sendEmail({
+            to: purchase.user.email,
+            subject: `Invoice for ${purchase.media?.title || "Media"} Purchase`,
+            templateName: "invoice",
+            templateData: {
+              userName: purchase.user.name,
+              userEmail: purchase.user.email,
+              invoiceId: paymentId,
+              mediaTitle: purchase.media?.title || "Media",
+              transactionId: purchase.payment.transactionId || "",
+              paymentDate: new Date().toISOString(),
+              amount: purchase.price,
+            },
+            attachments: invoiceUrl
+              ? [
+                  {
+                    filename: `invoice-${paymentId}.pdf`,
+                    content: await generateInvoicePdf({
+                      invoiceId: paymentId,
+                      userName: purchase.user.name,
+                      userEmail: purchase.user.email,
+                      mediaTitle: purchase.media?.title || "Media",
+                      amount: purchase.price,
+                      transactionId: purchase.payment.transactionId || "",
+                      paymentDate: new Date().toISOString(),
+                    }),
+                    contentType: "application/pdf",
+                  },
+                ]
+              : undefined,
+          });
+          console.log("✅ Invoice email sent to:", purchase.user.email);
+        } catch (err) {
+          console.error("❌ Email sending error:", err);
+          // Non-blocking: don't let email failure affect payment processing
+        }
+      }
+
       return result;
     }
 
