@@ -5,6 +5,7 @@ import AppError from "../../errorHelpers/AppError";
 import { prisma } from "../../lib/prisma";
 import { generateInvoicePdf } from "./payment.utils";
 import status from "http-status";
+import { uploadFileToCloudinary } from "../../config/cloudinary.config";
 
 const handleStripeWebhookEvent = async (event: Stripe.Event) => {
   // ✅ Prevent duplicate processing (idempotency)
@@ -48,12 +49,13 @@ const handleStripeWebhookEvent = async (event: Stripe.Event) => {
         throw new AppError(status.NOT_FOUND, "Payment not found");
       }
 
-      const invoiceUrl: string | null = null;
+      let invoiceUrl: string | null = null;
 
-      // 📄 Generate invoice outside transaction
+      // 📄 Generate invoice PDF and upload to Cloudinary
       if (session.payment_status === "paid") {
         try {
-          await generateInvoicePdf({
+          // 1️⃣ Generate PDF buffer
+          const pdfBuffer = await generateInvoicePdf({
             invoiceId: paymentId,
             userName: purchase.user.name,
             userEmail: purchase.user.email,
@@ -63,12 +65,18 @@ const handleStripeWebhookEvent = async (event: Stripe.Event) => {
             paymentDate: new Date().toISOString(),
           });
 
-          // 👉 You can add Cloudinary upload here (optional)
-          // invoiceUrl = uploadedUrl;
-          console.log("Invoice generated successfully");
+          // 2️⃣ Upload to Cloudinary
+          const cloudinaryResponse = await uploadFileToCloudinary(
+            pdfBuffer,
+            `invoice-${paymentId}.pdf`
+          );
+
+          invoiceUrl = cloudinaryResponse.secure_url;
+          console.log("✅ Invoice uploaded to Cloudinary:", invoiceUrl);
         } catch (err) {
-          console.error("Invoice generation error:", err);
+          console.error("❌ Invoice generation/upload error:", err);
           // Don't throw, continue with payment processing
+          // Invoice URL will be null if upload fails
         }
       }
 

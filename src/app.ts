@@ -11,7 +11,8 @@ import { envVars } from './app/config/env';
 import qs from 'qs';
 import { PaymentController } from './app/module/payment/payment.controller';
 import { auth } from './app/lib/auth';
-//import { AppointmentService } from './app/module/appointment/appointment.service';
+import cron from 'node-cron';
+import { PurchaseService } from './app/module/purchase/purchase.service';
 
 const app: Application = express();
 
@@ -35,6 +36,14 @@ app.use(express.urlencoded({ extended: true }));
 // Middleware to parse JSON bodies
 app.use(express.json());
 app.use(cookieParser());
+cron.schedule("*/25 * * * *", async () => {
+    try {
+        await PurchaseService.cancelUnpaidPurchases();
+        console.log("Cron job completed: Unpaid purchases cancelled successfully.");
+    } catch (error : any) {
+        console.error("Error during cron job execution:", error.message);
+    }
+});
 // Importing routes
 app.use("/api/v1", IndexRoute);
 // Basic route

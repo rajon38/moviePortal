@@ -14,7 +14,7 @@
     "pull": "prisma db pull",
     "studio": "prisma studio",
     "lint": "pnpm eslint ./src/**/*",
-    "stripe:webhook": "stripe listen --forward-to localhost:8010/webhook",
+    "stripe:webhook": "stripe listen --forward-to localhost:8001/webhook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

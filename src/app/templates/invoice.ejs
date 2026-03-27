@@ -225,18 +225,18 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>INVOICE</h1>
-            <p>Your Healthcare Payment Receipt</p>
+            <h1>MEDIA STREAMING INVOICE</h1>
+            <p>Your Payment Receipt</p>
         </div>
 
         <!-- Content -->
         <div class="content">
             <div class="greeting">
-                Hello <%= patientName %>,
+                Hello <%= userName %>,
             </div>
 
             <p style="margin-bottom: 20px; color: #666; font-size: 14px;">
-                Your payment for your consultation appointment has been successfully processed. Below is your payment invoice.
+                Your payment for media access has been successfully processed. Below is your payment invoice.
             </p>
 
             <!-- Invoice Details -->
@@ -244,6 +244,10 @@
                 <div class="info-row">
                     <span class="info-label">Invoice ID:</span>
                     <span class="info-value"><strong><%= invoiceId %></strong></span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value"><%= userEmail %></span>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Transaction ID:</span>
@@ -255,20 +259,20 @@
                 </div>
                 <div class="info-row">
                     <span class="info-label">Payment Date:</span>
-                    <span class="info-value"><%= paymentDate %></span>
+                    <span class="info-value"><%= new Date(paymentDate).toLocaleDateString() %></span>
                 </div>
             </div>
 
-            <!-- Doctor & Appointment Info -->
-            <div class="section-title">Consultation Details</div>
+            <!-- Media Details -->
+            <div class="section-title">Media Details</div>
             <div class="details-grid">
                 <div class="details-box">
-                    <p><span class="label">Doctor:</span></p>
-                    <p><strong><%= doctorName %></strong></p>
+                    <p><span class="label">Media Title:</span></p>
+                    <p><strong><%= mediaTitle %></strong></p>
                 </div>
                 <div class="details-box">
-                    <p><span class="label">Appointment Date:</span></p>
-                    <p><strong><%= appointmentDate %></strong></p>
+                    <p><span class="label">Purchase Date:</span></p>
+                    <p><strong><%= new Date(paymentDate).toLocaleDateString() %></strong></p>
                 </div>
             </div>
 
@@ -277,14 +281,14 @@
             
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 4px; margin-bottom: 20px;">
                 <div class="info-row">
-                    <span class="info-label">Consultation Fee:</span>
-                    <span class="info-value"><strong><%= amount.toFixed(2) %> BDT</strong></span>
+                    <span class="info-label">Media Fee:</span>
+                    <span class="info-value"><strong>$<%= amount.toFixed(2) %></strong></span>
                 </div>
             </div>
 
             <div class="amount-box">
                 <div class="amount-label">Total Amount Paid</div>
-                <div class="amount-value"><%= amount.toFixed(2) %> BDT</div>
+                <div class="amount-value">$<%= amount.toFixed(2) %></div>
             </div>
 
             <div class="payment-status">
@@ -305,8 +309,8 @@
 
             <!-- Additional Info -->
             <p style="font-size: 13px; color: #666; margin-bottom: 15px;">
-                <strong>Next Steps:</strong><br>
-                Your appointment has been confirmed. Please log in to your dashboard to view appointment details and prepare for your consultation.
+                <strong>Thank you for your purchase! 🎬</strong><br>
+                Your media access has been activated. Log in to your account to start streaming.
             </p>
 
             <p style="font-size: 13px; color: #666;">
@@ -316,14 +320,14 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p><strong>PH Healthcare</strong></p>
-            <p>Your Health, Our Priority</p>
+            <p><strong>Media Streaming Platform</strong></p>
+            <p>Your Entertainment, Our Priority</p>
             <p style="margin-top: 15px; font-size: 11px; color: #999;">
-                &copy; 2026 PH Healthcare. All rights reserved.
+                &copy; 2026 Media Streaming. All rights reserved.
             </p>
             <p style="margin-top: 10px;">
-                <a href="https://ph-healthcare.com">Visit our website</a> | 
-                <a href="mailto:support@ph-healthcare.com">Contact Support</a>
+                <a href="https://media-streaming.com">Visit our website</a> | 
+                <a href="mailto:support@media-streaming.com">Contact Support</a>
             </p>
             <p style="margin-top: 15px; font-size: 11px; color: #999;">
                 This is an automatically generated email. Please do not reply directly to this email.
