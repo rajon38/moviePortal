@@ -129,6 +129,7 @@ const handleStripeWebhookEvent = async (event: Stripe.Event) => {
               transactionId: purchase.payment.transactionId || "",
               paymentDate: new Date().toISOString(),
               amount: purchase.price,
+              invoiceUrl, // ✅ Pass Cloudinary URL to template
             },
             attachments: invoiceUrl
               ? [
