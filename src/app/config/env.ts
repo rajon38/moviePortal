@@ -77,7 +77,7 @@ const loadEnvVariables = (): EnvConfig => {
         }
     })
     return {
-        PORT: process.env.PORT as string || '8000',
+        PORT: process.env.PORT as string || '8001',
         NODE_ENV: process.env.NODE_ENV as string || 'production',
         DATABASE_URL: process.env.DATABASE_URL as string ,
         BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET as string,

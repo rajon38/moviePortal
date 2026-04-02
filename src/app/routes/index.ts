@@ -8,7 +8,7 @@ import { PurchaseRoutes } from "../module/purchase/purchase.route";
 
 const router = Router()
 
-router.use("/users", AuthRoutes)
+router.use("/auth", AuthRoutes)
 router.use("/media", MediaRoutes)
 router.use("/reviews", ReviewRoutes)
 router.use("/watch-lists", WatchListRoutes)

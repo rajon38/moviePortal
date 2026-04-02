@@ -10,11 +10,10 @@ import { MediaValidation } from "./media.validation.js";
 const router = Router();
 
 router.get("/",
-  checkAuth(Role.ADMIN, Role.USER),
   MediaController.getAll
 );
 
-router.get("/:id", checkAuth(Role.ADMIN, Role.USER), MediaController.getById);
+router.get("/:id", MediaController.getById);
 router.post(
   "/",
   checkAuth(Role.ADMIN),

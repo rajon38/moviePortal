@@ -11,7 +11,7 @@ import { deleteUploadedFilesFromGlobalErrorHandler } from "../utils/deleteUpload
 import { Prisma } from "../../generated/prisma/client";
 import { handlePrismaClientUnknownRequestError, handlePrismaClientValidationError, handlerPrismaClientInitializationError, handlerPrismaClientRustPanicError, PrismaClientKnownRequestError } from "../errorHelpers/handlePrismaErrors";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const globalErrorHandler = async(err: any, req: Request, res: Response, next: NextFunction) => {
+export const globalErrorHandler = async(err: any, req: Request, res: Response) => {
     if (envVars.NODE_ENV === "development") {
         console.error("Error from globalErrorHandler:", err);
     }
